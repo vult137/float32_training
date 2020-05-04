@@ -39,9 +39,8 @@ def add_random_shift_per(images, epsilon):
     epsilon = np.float32(epsilon)
     res = images.copy()
     for x in np.nditer(res, op_flags=["readwrite"]):
-        perturbation = np.random.randint(0, epsilon * 255)
+        perturbation = np.random.uniform(0.0, epsilon)
         perturbation = np.float32(perturbation)
-        perturbation = perturbation / 255
         minus_flag = bool(random.getrandbits(1))
         if minus_flag:
             if x < perturbation:
@@ -67,9 +66,8 @@ def add_random_rate_per(images, epsilon, rate):
         dice = np.random.randint(0, 100)
         if dice > rate:
             continue
-        perturbation = np.random.randint(0, epsilon)
+        perturbation = np.random.uniform(0.0, epsilon)
         perturbation = np.float32(perturbation)
-        perturbation = perturbation / 255
         minus_flag = bool(random.getrandbits(1))
         if minus_flag:
             if x < perturbation:
@@ -96,8 +94,8 @@ def add_filter_shift_per(images, filter_shape, epsilon):
     x_f, y_f = filter_shape[0], filter_shape[1]
     if x_f > x_len or y_f > y_len:
         raise ValueError
-    x_start = np.random.randint(0, x_len - x_f)
-    y_start = np.random.randint(0, y_len - y_f)
+    x_start = np.random.uniform(0.0, x_len - x_f)
+    y_start = np.random.uniform(0.0, y_len - y_f)
     res = images.copy()
     perturbation = np.float32(epsilon)
     for i in range(len(res)):

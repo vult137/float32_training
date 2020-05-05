@@ -16,6 +16,7 @@ def FGSM_test(x_test, y_test, model, model_name, epsilon):
 
 def do_FGSM_test(epsilon, test_data):
     classes = 10
+    image_name = test_data
 
     (x_train, y_train), (x_test, y_test) = cifar10.load_data()
     x_train = x_train.astype('float32')
@@ -24,6 +25,14 @@ def do_FGSM_test(epsilon, test_data):
     x_test = x_test / 255
     y_train = keras.utils.to_categorical(y_train, classes)
     y_test = keras.utils.to_categorical(y_test, classes)
+
+    if image_name == "data_batch":
+        x_test = x_train[0:10000]
+        y_test = y_train[0:10000]
+    elif image_name == "test_batch":
+        pass
+    else:
+        raise ValueError
 
     regular_model_name = "cifar10_regular.h5"
     dropout_model_name = "cifar10_dropout.h5"
@@ -250,16 +259,16 @@ def do_rate_test_return(epsilon, rate, test_data):
 
 
 if __name__ == '__main__':
-    test_batch = {}
-    data_batch = {}
-    epsilons = [0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14, 0.16, 0.18, 0.2]
-    for e in epsilons:
-        data_batch[e] = do_test_return(e, "data_batch")
-    print(test_batch)
-    print(data_batch)
-
-    # epsilons = [0.001, 0.003, 0.008, 0.1]
-    # res = {}
+    # test_batch = {}
+    # data_batch = {}
+    # epsilons = [0.02, 0.04, 0.06, 0.08, 0.1, 0.12, 0.14, 0.16, 0.18, 0.2]
     # for e in epsilons:
-    #     res[e] = do_FGSM_test(e, "test_batch")
-    # print(res)
+    #     data_batch[e] = do_test_return(e, "data_batch")
+    # print(test_batch)
+    # print(data_batch)
+
+    epsilons = [0.007, 0.009]
+    res = {}
+    for e in epsilons:
+        res[e] = do_FGSM_test(e, "test_batch")
+    print(res)

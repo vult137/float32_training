@@ -6,6 +6,7 @@ images/
 
 *.pyc
 *.h5
+*.png
 saved_models/
 
 

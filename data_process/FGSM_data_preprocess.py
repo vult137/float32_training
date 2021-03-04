@@ -72,8 +72,8 @@ def draw_drop_rate_compare(X, y1, y2, ylim, per_name, model_name_1, model_name_2
     plt.legend(loc="upper left")
     pic_title = "{0} and {1} drop rate".format(model_name_1, model_name_2).replace("_", " ")
     plt.title(pic_title)
-    store_title = "compare {0} and {1} on {2} on {3}"\
-        .format(model_name_1, model_name_2, per_name, dataset_name)\
+    store_title = "compare {0} and {1} on {2} on {3}" \
+        .format(model_name_1, model_name_2, per_name, dataset_name) \
         .replace(" ", "_").replace("_model", "").replace("_perturbation", "")
     save_folder = os.path.join(os.getcwd(), "FGSM_analyze_compare")
     save_path = os.path.join(save_folder, store_title)
@@ -115,16 +115,15 @@ if __name__ == "__main__":
 
     # for i in range(model_num):
     #     model_name = get_model_name(i)
-    #     draw_acc_after_drop_rate(epsilons, acc_after[model_name], drop_rate[model_name], (0, 1),
+    #     draw_acc_after_drop_rate(epsilons, acc_after[model_name], dropout_rate[model_name], (0, 1),
     #                              "FGSM perturbation", model_name, "test_batch")
 
     # for i in range(model_num):
     #     if i == 1:
     #         continue
     #     model_name = get_model_name(i)
-    #     draw_drop_rate_compare(epsilons, drop_rate["dropout_model"], drop_rate[model_name], (0, 1),
+    #     draw_drop_rate_compare(epsilons, dropout_rate["dropout_model"], dropout_rate[model_name], (0, 1),
     #                            "FGSM perturbation", "dropout_model", model_name, "test_batch")
-
 
     X = [int(e * 1000) for e in epsilons]
     ylim = (0, 1)
